@@ -35,7 +35,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  cart: [cartItemSchema], // Cart is an array of cartItemSchema
+  cart: [cartItemSchema],
 });
 
 const User = mongoose.model("User", userSchema);

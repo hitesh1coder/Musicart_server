@@ -1,11 +1,10 @@
 const express = require("express");
-const auth = require("../middleware/authMiddleware");
+
 const {
   addProduct,
   getAllProducts,
   getSingleProduct,
   getFilteredProducts,
-
   searchProducts,
   sortProducts,
 } = require("../controllers/ProductController");
