@@ -1,4 +1,7 @@
 const User = require("../Models/UserModel.js");
+const dotenv = require("dotenv");
+dotenv.config();
+const stripe = require("stripe")(process.env.STRIP_SECRECT_KEY);
 
 const addToCart = async (req, res) => {
   try {
@@ -103,10 +106,36 @@ const clearCart = async (req, res) => {
     res.status(500).send({ message: "Failed to clear cart", error });
   }
 };
+
+const checkoutCart = async (req, res) => {
+  try {
+    const { cartItems, totalAmount, cartTotalAmount } = req.body;
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: cartItems?.map((item) => ({
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: item.title,
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: item.quantity,
+      })),
+      mode: "payment",
+      success_url: `${process.env.CLIENT_PORT}/order-success`,
+      cancel_url: `${process.env.CLIENT_PORT}/checkout`,
+    });
+    res.json({ id: session.id });
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = {
   addToCart,
   fetchCartProducts,
   updateCart,
   removerFromCart,
   clearCart,
+  checkoutCart,
 };

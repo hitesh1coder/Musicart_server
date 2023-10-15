@@ -17,7 +17,7 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@types/node@*":
+"@types/node@*", "@types/node@>=8.1.0":
   version "20.4.1"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.4.1.tgz"
   integrity sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==
@@ -746,7 +746,7 @@ punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
-qs@6.11.0:
+qs@^6.11.0, qs@6.11.0:
   version "6.11.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.11.0.tgz"
   integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
@@ -928,6 +928,14 @@ strip-ansi@^6.0.1:
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
   dependencies:
     ansi-regex "^5.0.1"
+
+stripe@^13.10.0:
+  version "13.10.0"
+  resolved "https://registry.npmjs.org/stripe/-/stripe-13.10.0.tgz"
+  integrity sha512-8UGpNdM7oxjhqnNQB6/ouhT9reM80+A6a+NScg3rwzK2f0W/q8M+MdUivG1hL6wAdqF8DE8K2IbdzwwJCZ4WPw==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.11.0"
 
 tar@^6.1.11:
   version "6.1.15"
