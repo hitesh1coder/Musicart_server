@@ -44,10 +44,14 @@ const getAllProducts = async (req, res) => {
 };
 
 const getFilteredProducts = async (req, res) => {
-  const { type, brand, color, priceRange } = req.query;
+  const { keyword, type, brand, color, priceRange } = req.query["0"];
+  const { sortBy, order } = req.query["1"];
 
   const filter = {};
 
+  if (keyword) {
+    filter.title = { $regex: new RegExp(keyword, "i") };
+  }
   if (type) {
     filter.type = type;
   }
@@ -71,41 +75,13 @@ const getFilteredProducts = async (req, res) => {
     filter.price = priceRanges[priceRange];
   }
 
-  try {
-    const products = await productModal.find(filter);
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch products" });
-  }
-};
-
-const sortProducts = async (req, res) => {
-  const { sortBy, order } = req.query;
   const sortQuery = sortBy ? { [sortBy]: order === "desc" ? -1 : 1 } : {};
-
   try {
-    const products = await productModal.find().sort(sortQuery);
+    const products = await productModal.find(filter).sort(sortQuery);
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch products" });
   }
-};
-
-const searchProducts = async (req, res) => {
-  const { search } = req.query;
-  const query = search
-    ? {
-        $or: [
-          { title: { $regex: search, $options: "i" } },
-          { brand: { $regex: search, $options: "i" } },
-          { description: { $regex: search, $options: "i" } },
-          { color: { $regex: search, $options: "i" } },
-        ],
-      }
-    : {};
-
-  const products = await productModal.find(query);
-  res.status(200).json(products);
 };
 
 const getSingleProduct = async (req, res) => {
@@ -119,8 +95,6 @@ const getSingleProduct = async (req, res) => {
 };
 
 module.exports = {
-  searchProducts,
-  sortProducts,
   addProduct,
   getAllProducts,
   getSingleProduct,
