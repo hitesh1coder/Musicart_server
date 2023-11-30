@@ -44,8 +44,7 @@ const getAllProducts = async (req, res) => {
 };
 
 const getFilteredProducts = async (req, res) => {
-  const { keyword, type, brand, color, priceRange } = req.query["0"];
-  const { sortBy, order } = req.query["1"];
+  const { keyword, type, brand, color, priceRange, sortBy, order } = req.query;
 
   const filter = {};
 
