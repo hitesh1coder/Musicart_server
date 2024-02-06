@@ -1,39 +1,5 @@
 const { productModal } = require("../Models/ProductModal");
 
-const addProduct = async (req, res) => {
-  const {
-    title,
-    brand,
-    description,
-    price,
-    images,
-    stock,
-    type,
-    color,
-    details,
-  } = req.body;
-
-  if (
-    !title ||
-    !brand ||
-    !description ||
-    !price ||
-    !stock ||
-    !type ||
-    !color ||
-    !details
-  ) {
-    return res.status(502).json({ message: "all fields are required" });
-  }
-
-  try {
-    const product = await productModal.create(req.body);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 const getAllProducts = async (req, res) => {
   try {
     const products = await productModal.find();
@@ -94,7 +60,6 @@ const getSingleProduct = async (req, res) => {
 };
 
 module.exports = {
-  addProduct,
   getAllProducts,
   getSingleProduct,
   getFilteredProducts,

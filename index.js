@@ -8,6 +8,7 @@ dotenv.config();
 const ProductRouts = require("./Routes/ProductRouts");
 const AuthRoute = require("./Routes/AuthRoute");
 const cartRoute = require("./Routes/CartRoutes");
+const adminRoute = require("./Routes/AdminRouts");
 
 const app = express();
 
@@ -39,3 +40,4 @@ app.listen(port, () => {
 app.use("/auth", AuthRoute);
 app.use("/products", ProductRouts);
 app.use("/cart", cartRoute);
+app.use("/admin", adminRoute);
